@@ -1,0 +1,11 @@
+#place this file in /etc/systemd/system
+[Unit]
+Description=Service running a smog client for pm measuring/weather station project
+
+[Service]
+ExecStart=/usr/bin/python3 home/pi/smog-client-2/send.py
+StandardOutput=syslog
+
+[Install]
+WantedBy=multi-user.target
+Alias=smog-client.service
