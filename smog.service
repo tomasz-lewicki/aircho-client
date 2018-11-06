@@ -1,6 +1,7 @@
 #place this file in /etc/systemd/system
 [Unit]
 Description=Service running a smog client for pm measuring/weather station project
+User=pi
 
 [Service]
 ExecStart=/usr/bin/python3 home/pi/smog-client-2/send.py
