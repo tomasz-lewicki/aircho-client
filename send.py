@@ -5,7 +5,7 @@ import logging
 import sys
 from pms7003.pms7003 import Pms7003Sensor, PmsSensorExcpetion, VALUES
 
-URI_PROD = 'https://smog-monitor.herokuapp.com/api/get-one'
+URI_PROD = 'https://aq-api.herokuapp.com/api/measurements/'
 URI_DEVEL = 'http://192.168.1.66:5000/api/measurements/'
 N_SAMPLES = 20
 
@@ -26,7 +26,7 @@ def avg_n_readouts(n):
 
 def send_request(j):
     try:
-        r=requests.post(URI_DEVEL, json=json.dumps(j), timeout=4)
+        r=requests.post(URI_PROD, json=json.dumps(j), timeout=4)
         logging.info('{} {}'.format(int(1000*time.time()), r.status_code))
         if r.status_code != 200:
             time.sleep(1)
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     sensor = Pms7003Sensor('/dev/serial0')
     sys.excepthook = handle_exception
-    logging.basicConfig(filename='/home/pi/smog-client-2/smog.log', level='INFO')
+    logging.basicConfig(filename='/home/pi/aq-sensor/aq-sensor.log', level='INFO')
 
     while True:
         mainloop()
