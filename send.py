@@ -45,6 +45,7 @@ def mainloop():
 
 if __name__ == '__main__':
 
+    time.sleep(5)
     sensor = Pms7003Sensor('/dev/serial0')
     sys.excepthook = handle_exception
     logging.basicConfig(filename='/home/pi/aq-sensor/aq-sensor.log', level='INFO')

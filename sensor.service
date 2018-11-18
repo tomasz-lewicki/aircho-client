@@ -9,4 +9,4 @@ StandardOutput=syslog
 
 [Install]
 WantedBy=multi-user.target
-Alias=aq-sensor.service
+Alias=sensor
