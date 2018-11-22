@@ -5,9 +5,11 @@ import logging
 import sys
 from pms7003.pms7003 import Pms7003Sensor, PmsSensorExcpetion, VALUES
 
-URI_PROD = 'https://aq-api.herokuapp.com/api/measurements/'
-URI_DEVEL = 'http://192.168.1.66:5000/api/measurements/'
-N_SAMPLES = 20
+URI_PROD = 'https://aq-api.herokuapp.com/measurements/'
+URI_DEVEL = 'http://192.168.1.66:5001/measurements/'
+N_SAMPLES = 300 #around every 5mins
+
+API_URI = URI_PROD
 
 def handle_exception(exc_type, exc_value, exc_traceback):
     logging.error("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
@@ -26,9 +28,9 @@ def avg_n_readouts(n):
 
 def send_request(j):
     try:
-        r=requests.post(URI_PROD, json=json.dumps(j), timeout=4)
+        r=requests.post(API_URI, json=json.dumps(j), timeout=4)
         logging.info('{} {}'.format(int(1000*time.time()), r.status_code))
-        if r.status_code != 200:
+        if r.status_code != 204:
             time.sleep(1)
         del r
 
