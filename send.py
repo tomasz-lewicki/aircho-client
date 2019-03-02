@@ -15,16 +15,21 @@ def handle_exception(exc_type, exc_value, exc_traceback):
     logging.error("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
 
 def avg_n_readouts(n):
+    """attempt n readouts and return the average value of successful readouts"""
+    succ = 0 # the number of successful meaurements
+
     c = {v: [] for v in VALUES }
     for _ in range(n):
+        # n is a number of attempts
         try:
             r = sensor.read()
             for v in VALUES:
                 c[v].append(r[v]) #c is a dictionary of lists
+            succ +=1
         except PmsSensorExcpetion as e:
             logging.exception('{} {}'.format(int(1000*time.time()), e))
-            break
-    return {v: round((sum(c[v])/n), 2) for v in VALUES} #return a dict of averages
+            continue
+    return {v: round((sum(c[v])/succ), 2) for v in VALUES} #return a dict of averages
 
 def send_request(j):
     try:
