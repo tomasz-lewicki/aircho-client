@@ -4,13 +4,7 @@ import json
 import time
 import logging
 import sys
-from pms7003.pms7003 import Pms7003Sensor, PmsSensorExcpetion, VALUES
 
-URI_PROD = 'https://aq-api.herokuapp.com/measurements/'
-URI_DEVEL = 'http://192.168.1.66:5001/measurements/'
-N_SAMPLES = 300 #around every 5mins
-
-API_URI = URI_PROD
 
 class RequestDaemon(threading.Thread):
     def __init__(self, URI):
@@ -50,21 +44,3 @@ class RequestDaemon(threading.Thread):
         self._new_data = True
         self._data_dict = data_dict
 
-
-def mainloop():
-
-    j={}
-    a = avg_n_readouts(N_SAMPLES)
-    j['values'] = a
-    j['timestamp'] = time.time()
-    send_request(j)
-
-if __name__ == '__main__':
-
-    time.sleep(5)
-    sensor = Pms7003Sensor('/dev/serial0')
-    sys.excepthook = handle_exception
-    logging.basicConfig(filename='/home/pi/aq-sensor/aq-sensor.log', level='INFO')
-
-    while True:
-        mainloop()

@@ -10,5 +10,5 @@ export URI=https://aircho-new.herokuapp.com/measurements/
 export LOG_PATH=~/logs/
 export PBAY_DEV='/dev/ttyUSB0'
 export PMS_DEV='/dev/serial0'
-export PMS_BUF_SIZE=300 #that is about every 5 minutes
-
+export PMS_BUF_SIZE=300 #that is about 5 minutes
+export DEBUG=True

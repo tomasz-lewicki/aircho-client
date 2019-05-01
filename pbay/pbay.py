@@ -40,14 +40,23 @@ class PBayParser(serial.threaded.LineReader):
         keyvalue = self._p.findall(data)
         for kv in keyvalue:
             self.values[kv[0:3]] = kv[5:]
+
+class PBayThreadedReader(serial.threaded.ReaderThread):
+    def __init__(self, device_string, baudrate=115200, timeout=1):
+        super(PBayThreadedReader, self).__init__(serial.Serial(port=device_string, baudrate=115200, timeout=1),PBayParser)
+
         
 
 if __name__ == '__main__':
-    ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)
+    #ser = serial.Serial(port='/dev/ttyUSB0', baudrate=115200, timeout=1)
 
-    #TODO: change this so it's only PBayParser
-    with serial.threaded.ReaderThread(ser, PBayParser) as reader: 
+    # #TODO: change this so it's only PBayParser
+    # with serial.threaded.ReaderThread(ser, PBayParser) as reader: 
+    #     while True:
+    #         print('H2S', reader.values['H2S'], 'SO2', reader.values['SO2'], 'NO2', reader.values['NO2'], 'OZO: ' ,reader.values['OZO'])
+    #         time.sleep(5)
+
+    with PBayThreadedReader('/dev/ttyUSB0') as pb:
         while True:
-            print('H2S', reader.values['H2S'], 'SO2', reader.values['SO2'], 'NO2', reader.values['NO2'], 'OZO: ' ,reader.values['OZO'])
-            time.sleep(5)
-
+            print(pb.values)
+            time.sleep(1)
