@@ -4,14 +4,20 @@ import sys
 import logging 
 import time
 
-LOG_PATH = os.environ['LOG_PATH']
-URI = os.environ['URI']
-NODE_ID = os.environ['NODE_ID']
-PBAY_DEV = os.environ['PBAY_DEV']
-PMS_DEV = os.environ['PMS_DEV']
-DEBUG = os.environ['DEBUG']
-PMS_BUF_SIZE = int(os.environ['PMS_BUF_SIZE'])
+LOG_PATH = '/home/pi/logs'
+URI = 'https://aircho-new.herokuapp.com/measurements/'
+NODE_ID = '3'
+DEBUG=True
+
+PBAY_EN=False
+PBAY_DEV='/dev/ttyUSB0'
+
+PMS_DEV='/dev/serial0'
+PMS_BUF_SIZE=300 #that is about 5 minutes
+
 MEASUREMENTS_URI = URI + NODE_ID
+
+
 
 #EXCEPTIONS/LOGGING
 def handle_exception(exc_type, exc_value, exc_traceback):
