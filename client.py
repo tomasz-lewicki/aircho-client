@@ -15,30 +15,26 @@ time.sleep(1)
 led.fill_dim()
 time.sleep(1)
 
-print(PBAY_EN)
-
 if PBAY_EN:
     while True:
-        print("CYCKI")
         time.sleep(1)
-    # print(type(PBAY_EN))
-    # with PBayThreadedReader('/dev/ttyUSB0') as pbay_reader, Pms7003ThreadedReader(serial_device=PMS_DEV, bufsize=PMS_BUF_SIZE) as pms_reader:
-    #     #let PMS sensor collect some values
-    #     time.sleep(2) #TODO: change it for sth less brittle
+        # with PBayThreadedReader('/dev/ttyUSB0') as pbay_reader, Pms7003ThreadedReader(serial_device=PMS_DEV, bufsize=PMS_BUF_SIZE) as pms_reader:
+        #     #let PMS sensor collect some values
+        #     time.sleep(2) #TODO: change it for sth less brittle
 
-    #     i = 0
-    #     while True:
-            
-    #         pms_data_dict = pms_reader.filtered_values()
-    #         pbay_data_dict = pbay_reader.values
+        #     i = 0
+        #     while True:
+                
+        #         pms_data_dict = pms_reader.filtered_values()
+        #         pbay_data_dict = pbay_reader.values
 
-    #         print(pbay_data_dict)
-    #         print(pms_data_dict)
+        #         print(pbay_data_dict)
+        #         print(pms_data_dict)
 
-    #         led.set(int(pms_data_dict['pm10']/25*100))
+        #         led.set(int(pms_data_dict['pm10']/25*100))
 
-    #         data_sender.feed_data(pms_data_dict)
-    #         time.sleep(1)
+        #         data_sender.feed_data(pms_data_dict)
+        #         time.sleep(1)
 
 else:
     with Pms7003ThreadedReader(serial_device=PMS_DEV, bufsize=PMS_BUF_SIZE) as pms_reader:
@@ -50,7 +46,7 @@ else:
             
             pms_data_dict = pms_reader.filtered_values()
 
-            print(pms_data_dict)
+            logging.info(time.time(),pms_data_dict)
 
             led.set(int(pms_data_dict['pm10']/25*100))
 

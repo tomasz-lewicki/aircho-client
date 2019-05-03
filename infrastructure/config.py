@@ -7,7 +7,7 @@ import time
 LOG_PATH = '/home/pi/logs'
 URI = 'https://aircho-new.herokuapp.com/measurements/'
 NODE_ID = '3'
-DEBUG=True
+DEBUG=False
 
 PBAY_EN=False
 PBAY_DEV='/dev/ttyUSB0'
