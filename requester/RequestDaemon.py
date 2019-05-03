@@ -18,15 +18,11 @@ class RequestDaemon(threading.Thread):
             if self._new_data:
                 try:
                     request_fields = {}
-                    request_fields['values'] = self._data_dict
                     request_fields['timestamp'] = time.time()
+                    request_fields['values'] = self._data_dict
                     
-                    h = {'Content-Type': 'application/json'}
-                    j = json.dumps(request_fields)
-
-                    print(self._URI)
-                    print(j)
-                    r=requests.post(self._URI, headers=h, json=j, timeout=4)
+                    r=requests.post(self._URI, headers={'Content-Type': 'application/json'}, json=request_fields, timeout=4)
+                    print(r)
 
                     if r.status_code == 204:
                         logging.info('{} {}'.format(int(1000*time.time()), r.status_code))
