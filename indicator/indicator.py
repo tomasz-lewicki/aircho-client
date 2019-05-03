@@ -35,7 +35,11 @@ class Indicator:
             self.pixels[idx] = self.colormap_dim[idx]
             time.sleep(0.03)
 
-    def set(self, percentage):        
+    def set(self, percentage):
+        #fill dim with no latency
+        for idx, color in enumerate(self.colormap):
+            self.pixels[idx] = self.colormap_dim[idx]
+
         percentage = max(min(percentage, 100),0)
         tick_idx = round(percentage/100 * (self.pixel_count-1))
         print(percentage)
