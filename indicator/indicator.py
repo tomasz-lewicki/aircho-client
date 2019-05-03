@@ -42,8 +42,6 @@ class Indicator:
 
         percentage = max(min(percentage, 100),0)
         tick_idx = round(percentage/100 * (self.pixel_count-1))
-        print(percentage)
-        print(tick_idx)
         print("percentage", percentage)
         pixel_value = round(percentage/100 * 255)
 

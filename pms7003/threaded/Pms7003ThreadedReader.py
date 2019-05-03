@@ -2,6 +2,7 @@ import time
 import threading 
 from collections import deque
 from statistics import mean
+from copy import deepcopy
 from pms7003.pms7003 import Pms7003Sensor, PmsSensorExcpetion
 
 class EmptyRaderBufferException(ValueError):
@@ -46,7 +47,7 @@ class Pms7003ThreadedReader(threading.Thread):
 
     def filtered_values(self):
         self._value_buffers_lock.acquire()
-        bufs = self._value_buffers
+        bufs = deepcopy(self._value_buffers)
         self._value_buffers_lock.release()  
 
         if not all(val for val in bufs.values()):

@@ -46,7 +46,7 @@ else:
             
             pms_data_dict = pms_reader.filtered_values()
 
-            logging.info(time.time(),pms_data_dict)
+            logging.info("received from PMS sensor {}".format(pms_data_dict))
 
             led.set(int(pms_data_dict['pm10']/25*100))
 

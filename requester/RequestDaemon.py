@@ -22,13 +22,12 @@ class RequestDaemon(threading.Thread):
                     request_fields['values'] = self._data_dict
                     
                     r=requests.post(self._URI, headers={'Content-Type': 'application/json'}, json=request_fields, timeout=4)
-                    print(r)
 
                     if r.status_code == 204:
-                        logging.info('{} {}'.format(int(1000*time.time()), r.status_code))
+                        logging.info("{} response {} {}".format(time.time(), r.status_code, request_fields))
                         self._new_data = False
                     else:
-                        logging.error('{} {}'.format(int(1000*time.time()), r.status_code))
+                        logging.error("{} response {} {}".format(time.time(), r.status_code, request_fields))
                     del r # had some problems with hanging requests causing memory leaks. There's probably a better way...
             
                 except requests.RequestException as e:
