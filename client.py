@@ -41,7 +41,7 @@ else:
         #let PMS sensor collect some values
         time.sleep(2) #TODO: change it for sth less brittle
 
-        i = 0
+        seq = 0
         while True:
             
             pms_data_dict = pms_reader.filtered_values()
@@ -50,5 +50,7 @@ else:
 
             led.set(int(pms_data_dict['pm10']/25*100))
 
-            data_sender.feed_data(pms_data_dict)
+            #only send a request every 60s
+            if not seq % 60: data_sender.feed_data(pms_data_dict)
+            seq+=1
             time.sleep(1)
