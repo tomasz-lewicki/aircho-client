@@ -5,7 +5,7 @@ import logging
 import time
 
 LOG_PATH = '/home/pi/logs'
-URI = 'https://aircho-new.herokuapp.com/measurements/'
+URI = 'https://aircho.herokuapp.com/measurements/'
 NODE_ID = '3'
 DEBUG=False
 
