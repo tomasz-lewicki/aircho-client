@@ -1,11 +1,17 @@
 #place this file in /etc/systemd/system
 [Unit]
 Description=Service running a smog client for pm measuring/weather station project
-#User=pi
+User=pi
+StartLimitBurst=5
+StartLimitIntervalSec=200
+
+#processes lasting less than 200s are only allowed to start 5 in a row
 
 [Service]
 ExecStart=/usr/bin/python3 home/pi/aircho-client/client.py
 StandardOutput=syslog
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
